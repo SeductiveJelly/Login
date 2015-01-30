@@ -12,8 +12,14 @@ public class UserDatabase {
 	}
 
 	// TODO: Finish
-	public boolean createUser(String username, String password, String firstName, String lastName) {
-		return true;
+	public void createUser(String username, String password, String firstName, String lastName) {
+		if(isValidUsername(username)) {
+			if(isValidPassword(password)) {
+				if(isValidName(firstName, lastName)) {
+					
+				}
+			}
+		}
 	}
 	
 	/**
@@ -29,7 +35,7 @@ public class UserDatabase {
 
 	public boolean isValidUsername(String username) {
 		// Defines the regex pattern for a username
-		String regex = "^(?=[^#%^&+\\/]+$)(?=\\S+$).{5,15}$";
+		String regex = "^(?=[^#%^&+\\/\\s]+$).{5,15}$";
 		
 		// Make sure the username is unique
 		if (!(isUser(username))) {
@@ -52,6 +58,15 @@ public class UserDatabase {
 		
 		return false;
 		
+	}
+	
+	public boolean isValidName(String firstName, String lastName) {
+		String regex = "^(?=[^a-z\\d\\s\\W]+$)(?=.*[A-Z]).{3,20}$";
+		
+		if(regexChecker(regex, firstName.toUpperCase()) && regexChecker(regex, lastName.toUpperCase())) return true;
+		else System.err.println("Error: First and last name must be in defined parameters!");
+		
+		return false;
 	}
 	
 	public boolean isUser(String username) {
